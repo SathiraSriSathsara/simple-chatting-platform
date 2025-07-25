@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Enhanced Chat - WhatsApp Web Style</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A modern WhatsApp-style chat interface" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link href="static/styles/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="wa-bg">
+      <div class="wa-main">
+        <div class="wa-header-banner">
+          <h2>GL Chat</h2>
+        </div>
+        <div class="wa-chat-area">
+          <div id="chat-box" class="wa-chat">
+            <div id="offline" class="wa-offline">
+              <span class="big">Server is offline.</span><br />
+              <span>We're working to restore connection.</span>
+              <div class="wa-retry-btn">Retry Connection</div>
+            </div>
+            <ul id="msgs" class="wa-msgs">
+              <!-- Messages will be inserted here dynamically -->
+            </ul>
+            <ul id="typing" class="wa-msgs"></ul>
+          </div>
+          <div class="wa-input-bar">
+            <button
+              id="attach_btn"
+              class="wa-action-btn wa-attach-btn"
+              title="Attach file"
+            >
+              <i class="fas fa-paperclip"></i>
+              <input
+                type="file"
+                id="file_input"
+                class="wa-file-input"
+                multiple
+                style="display: none"
+              />
+            </button>
+            <button
+              id="emic_btn"
+              class="wa-action-btn wa-emoji-btn"
+              title="Insert emoji"
+            >
+              <i class="far fa-smile"></i>
+            </button>
+            <textarea
+              id="form_input"
+              class="wa-input"
+              data-user-id="2"
+              rows="1"
+            ></textarea>
+            <button id="send" class="wa-send-btn">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+            <ul id="emic" class="wa-emic-container"></ul>
+            <ul id="users" class="wa-users"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="static/scripts/emic.js"></script>
+    <script src="static/scripts/chat.js"></script>
+    <script>
+      const socket = io(location.protocol + "//" + location.host, {
+        path: location.pathname.replace(/\/$/, "") + "/socket.io/",
+        reconnectionAttempts: 5,
+        reconnectionDelay: 1000,
+      });
+      Emic.init();
+      WAFullScreenChat.init(socket);
+    </script>
+  </body>
+</html>
