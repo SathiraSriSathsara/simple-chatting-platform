@@ -76,6 +76,7 @@
     <script src="static/scripts/emic.js"></script>
     <script src="static/scripts/chat.js"></script>
     <script>
+      
       const socket = io(location.protocol + "//" + location.host, {
         path: location.pathname.replace(/\/$/, "") + "/socket.io/",
         reconnectionAttempts: 5,
